@@ -82,22 +82,26 @@
 
   <script>
     const questions = [
-      {
-        text: "A ________ is a collection of related data organized for easy access and management.",
-        type: "fill",
-        correctAnswer: "database",
-      },
-      {
-        text: "Which of the following is a valid SQL command to retrieve data from a database?",
-        type: "mcq",
-        options: ["GET", "SELECT", "FETCH", "QUERY"],
-        correctAnswer: "SELECT",
-      },
-      {
-        text: "The primary key of a table must always be ________.",
-        type: "fill",
-        correctAnswer: "unique",
-      },
+      { text: "A ________ is a collection of related data organized for easy access and management.", type: "fill", correctAnswer: "database" },
+      { text: "Which of the following is a valid SQL command to retrieve data from a database?", type: "mcq", options: ["GET", "SELECT", "FETCH", "QUERY"], correctAnswer: "SELECT" },
+      { text: "The primary key of a table must always be ________.", type: "fill", correctAnswer: "unique" },
+      { text: "What is the purpose of the JOIN operation in SQL?", type: "mcq", options: ["To delete duplicate rows", "To combine data from multiple tables", "To update records", "To create a new table"], correctAnswer: "To combine data from multiple tables" },
+      { text: "The process of organizing data to minimize redundancy is called ________.", type: "fill", correctAnswer: "normalization" },
+      { text: "In the ER model, a weak entity is dependent on a ________ entity.", type: "mcq", options: ["Strong", "Composite", "Foreign", "Parent"], correctAnswer: "Strong" },
+      { text: "An XML document must have one ________ element.", type: "fill", correctAnswer: "root" },
+      { text: "Which of the following is NOT a type of database?", type: "mcq", options: ["Relational", "Object-oriented", "Flat-file", "Directory"], correctAnswer: "Directory" },
+      { text: "In SQL, the ________ clause is used to filter groups of data.", type: "fill", correctAnswer: "HAVING" },
+      { text: "What does the acronym ACID stand for in the context of databases?", type: "mcq", options: ["Automatic, Consistent, Immediate, Durable", "Atomicity, Consistency, Isolation, Durability", "Accuracy, Completeness, Integrity, Durability", "Atomicity, Completeness, Isolation, Dependence"], correctAnswer: "Atomicity, Consistency, Isolation, Durability" },
+      { text: "In a relational database, a ________ represents a single row in a table.", type: "fill", correctAnswer: "tuple" },
+      { text: "Which of the following SQL keywords is used to create a new table?", type: "mcq", options: ["ADD", "INSERT", "CREATE", "MAKE"], correctAnswer: "CREATE" },
+      { text: "An XQuery is used to query ________ data.", type: "fill", correctAnswer: "XML" },
+      { text: "What is the default port number for MySQL?", type: "mcq", options: ["3306", "8080", "1521", "1433"], correctAnswer: "3306" },
+      { text: "The ________ operation in relational algebra combines rows from two relations based on a common attribute.", type: "fill", correctAnswer: "join" },
+      { text: "In normalization, a table is in 2NF if it is in 1NF and ________.", type: "mcq", options: ["Has a primary key", "Contains no partial dependencies", "Has no duplicate rows", "Contains no transitive dependencies"], correctAnswer: "Contains no partial dependencies" },
+      { text: "In XPath, the expression //book/title retrieves all ________ elements under any book element.", type: "fill", correctAnswer: "title" },
+      { text: "Which of the following is used to uniquely identify a record in a table?", type: "mcq", options: ["Foreign Key", "Primary Key", "Index", "Column"], correctAnswer: "Primary Key" },
+      { text: "The process of mapping an ER diagram to a relational schema involves creating ________ for entities and relationships.", type: "fill", correctAnswer: "tables" },
+      { text: "Which SQL function is used to count the number of rows in a table?", type: "mcq", options: ["COUNT()", "SUM()", "ROWCOUNT()", "TOTAL()"], correctAnswer: "COUNT()" }
     ];
 
     let currentQuestionIndex = 0;
