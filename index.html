@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #ffffff;
+      color: #333;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .options {
+      text-align: left;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      background-color: #6a11cb;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .results {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mock Exam Quiz</h1>
+    <div id="quiz"></div>
+    <div>
+      <button id="prev" disabled>Previous</button>
+      <button id="next">Next</button>
+      <button id="submit" style="display: none;">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "A ________ is a collection of related data organized for easy access and management.",
+        type: "fill",
+        correctAnswer: "database",
+      },
+      {
+        text: "Which of the following is a valid SQL command to retrieve data from a database?",
+        type: "mcq",
+        options: ["GET", "SELECT", "FETCH", "QUERY"],
+        correctAnswer: "SELECT",
+      },
+      {
+        text: "The primary key of a table must always be ________.",
+        type: "fill",
+        correctAnswer: "unique",
+      },
+    ];
+
+    let currentQuestionIndex = 0;
+    const answers = [];
+
+    function renderQuestion() {
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = "";
+
+      const question = questions[currentQuestionIndex];
+      quizDiv.innerHTML += `<div class='question'>${currentQuestionIndex + 1}. ${question.text}</div>`;
+
+      if (question.type === "fill") {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = answers[currentQuestionIndex] || "";
+        input.oninput = (e) => {
+          answers[currentQuestionIndex] = e.target.value;
+        };
+        quizDiv.appendChild(input);
+      } else if (question.type === "mcq") {
+        const optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("options");
+        question.options.forEach((option) => {
+          const label = document.createElement("label");
+          const radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "options";
+          radio.value = option;
+          if (answers[currentQuestionIndex] === option) radio.checked = true;
+          radio.onchange = () => {
+            answers[currentQuestionIndex] = option;
+          };
+          label.appendChild(radio);
+          label.append(option);
+          optionsDiv.appendChild(label);
+        });
+        quizDiv.appendChild(optionsDiv);
+      }
+
+      document.getElementById("prev").disabled = currentQuestionIndex === 0;
+      document.getElementById("next").style.display = currentQuestionIndex < questions.length - 1 ? "inline-block" : "none";
+      document.getElementById("submit").style.display = currentQuestionIndex === questions.length - 1 ? "inline-block" : "none";
+    }
+
+    function showResults() {
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = "<h2>Results</h2>";
+      questions.forEach((question, index) => {
+        const userAnswer = answers[index] || "Not answered";
+        const isCorrect = userAnswer.toLowerCase() === question.correctAnswer.toLowerCase();
+        quizDiv.innerHTML += `<div class='results'>
+          <p>${index + 1}. ${question.text}</p>
+          <p>Your Answer: <span class='${isCorrect ? "correct" : "incorrect"}'>${userAnswer}</span></p>
+          ${!isCorrect ? `<p>Correct Answer: ${question.correctAnswer}</p>` : ""}
+        </div>`;
+      });
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById("submit").addEventListener("click", showResults);
+
+    renderQuestion();
+  </script>
+</body>
+</html>
